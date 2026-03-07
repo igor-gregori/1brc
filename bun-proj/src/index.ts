@@ -16,6 +16,8 @@ type Results = {
 let results: Results = {};
 
 for (const row of content.split("\n")) {
+  if (row === "") continue;
+
   const [station, strMeasurement] = row.split(";");
 
   if (!station || !strMeasurement) {
