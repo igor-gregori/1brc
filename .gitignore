@@ -1,2 +1,4 @@
 bun-proj/node_modules
-measurements/measurements.txt
+bun-proj/out
+
+measurements/**.txt
