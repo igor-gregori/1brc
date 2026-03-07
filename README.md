@@ -4,7 +4,7 @@ The 1 Billion Rows Challenge (1BRC) is a focused exploration of how modern softw
 
 The catch? The file contains 1,000,000,000 (one billion) rows.
 
-## About my implementation tryies
+## About my implementation tries
 
 1º With Bun, use File I/O API to open the entire file and do the calculations  
 2º With Bun, use Streams API to process the file with chunks  
@@ -25,3 +25,7 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 - 300ms to process 1M lines
 - 28s to process 100M lines
 - process killed (out of mem, 24gb in my WSL Ubuntu) with 1B lines
+
+## Others
+
+Original repository: [The One Billion Row Challenge](https://github.com/gunnarmorling/1brc)
