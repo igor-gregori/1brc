@@ -1,6 +1,6 @@
 const file = Bun.file("../measurements/measurements.txt");
 
-console.time("File I/O API method");
+console.time("File I/O API");
 
 const content = await file.text();
 
@@ -45,4 +45,4 @@ for (const row of content.split("\n")) {
   }
 }
 
-console.timeEnd("File I/O API method");
+console.timeEnd("File I/O API");
