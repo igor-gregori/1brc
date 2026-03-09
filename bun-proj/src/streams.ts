@@ -1,6 +1,6 @@
-const file = Bun.file("../measurements/measurements-1M.txt");
+const file = Bun.file("../measurements/measurements-1B.txt");
 
-console.time("Streams API method v1");
+console.time("Streams API v1");
 
 const stream = file.stream().pipeThrough(new TextDecoderStream());
 
@@ -15,48 +15,29 @@ type Results = {
 
 let results: Results = {};
 
-let brokenRow: string | null = null;
+let lastChunkPart: string | undefined = "";
+
+// let chunkNumber = 0;
 
 for await (const chunk of stream) {
+  // const t0 = performance.now();
   processChuck(chunk);
+  // const t1 = performance.now();
+  // console.log(`Chunck ${chunkNumber} processed in ${(t1 - t0).toFixed(3)}ms`);
+  // chunkNumber++;
 }
 
 function processChuck(chunk: string) {
-  for (let row of chunk.split("\n")) {
-    if (row === "") continue;
+  const rows = (lastChunkPart + chunk).split("\n");
+  lastChunkPart = rows.pop();
 
-    if (brokenRow !== null) {
-      row = brokenRow + row;
-      console.log("weld", row);
-      brokenRow = null;
-    }
+  for (const row of rows) {
+    if (row === "") continue;
 
     const [station, strMeasurement] = row.split(";");
 
     if (!station || !strMeasurement) {
-      // 1º Think
-      // I need handle broken rows here
-      // Maybe I can save the number of the chunk and try to join with the next
-      // ...
-      // throw new Error("Invalid data");
-      // brokenRows.push(row);
-
-      // 2º Think
-      // If i take a broken row, i save this broken row and join with the next row.
-
-      // 🚧 WIP:
-      // I'm having a problem to identify broken rows
-      // See this output:
-      //  weld Madīnat Zāyid;36.0
-      //  weld Uracoa;-54.2
-      //  weld .0Archdale;-28.4 <- 🟡 This is wrong, can cause invalid results
-      //  weld Morpará;27.0
-      //  weld Bourne;79.7
-      //  weld Ghal Kalān;-5.
-      // I need a better way to identify broken rows
-
-      brokenRow = row;
-      continue;
+      throw new Error("Invalid row");
     }
 
     const measurement = Number(strMeasurement);
@@ -81,4 +62,4 @@ function processChuck(chunk: string) {
   }
 }
 
-console.timeEnd("Streams API method v1");
+console.timeEnd("Streams API v1");
