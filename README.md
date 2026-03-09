@@ -29,6 +29,16 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 | 100M        |                  28s |
 | 1B          | Process killed (OOM) |
 
+#### With the 2º implementation (process the file with chunks)
+
+| Nº of lines | Script version | Time spent |
+| :---------- | :------------- | ---------: |
+| 10k         | v1             |        8ms |
+| 100k        | v1             |       38ms |
+| 1M          | v1             |      260ms |
+| 100M        | v1             |        24s |
+| 1B          | v1             |      3m50s |
+
 ## Others
 
 Original repository: [The One Billion Row Challenge](https://github.com/gunnarmorling/1brc)  
