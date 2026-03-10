@@ -43,5 +43,6 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 Original repository: [The One Billion Row Challenge](https://github.com/gunnarmorling/1brc)  
 Golang inspiration: [Reading 16GB File in Seconds](https://medium.com/swlh/processing-16gb-file-in-seconds-go-lang-3982c235dfa2)
+Bun workers: [Bun Workers](https://bun.com/docs/runtime/workers)
 
 I ran this tests in my WSL Ubuntu with 16 CPU's and 24GB of RAM
