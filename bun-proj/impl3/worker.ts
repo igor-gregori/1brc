@@ -1,8 +1,16 @@
-const file = Bun.file("../measurements/measurements.txt");
+declare var self: Worker;
 
-console.time("impl2");
+let chunkCounter = 0;
 
-const stream = file.stream().pipeThrough(new TextDecoderStream());
+self.onmessage = (event: MessageEvent<string[]>) => {
+  if (event.data[0] === "return-summary") {
+    postMessage(results);
+  } else {
+    console.log(`Processing chunk n${chunkCounter}`);
+    // processChuck(event.data);
+    chunkCounter++;
+  }
+};
 
 type Results = {
   [key: string]: {
@@ -15,22 +23,7 @@ type Results = {
 
 let results: Results = {};
 
-let lastChunkPart: string | undefined = "";
-
-// let chunkNumber = 0;
-
-for await (const chunk of stream) {
-  // const t0 = performance.now();
-  processChuck(chunk);
-  // const t1 = performance.now();
-  // console.log(`Chunck ${chunkNumber} processed in ${(t1 - t0).toFixed(3)}ms`);
-  // chunkNumber++;
-}
-
-function processChuck(chunk: string) {
-  const rows = (lastChunkPart + chunk).split("\n");
-  lastChunkPart = rows.pop();
-
+function processChuck(rows: string[]) {
   for (const row of rows) {
     if (row === "") continue;
 
@@ -61,5 +54,3 @@ function processChuck(chunk: string) {
     }
   }
 }
-
-console.timeEnd("impl2");
