@@ -1,4 +1,4 @@
-const file = Bun.file("../measurements/measurements-1B.txt");
+const file = Bun.file("../measurements/measurements.txt");
 
 console.time("Streams API v1");
 

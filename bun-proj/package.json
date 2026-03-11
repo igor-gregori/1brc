@@ -2,12 +2,6 @@
   "name": "bun-proj",
   "type": "module",
   "private": true,
-  "scripts": {
-    "start-basic": "bun src/basic-file-io.ts",
-    "build-basic": "bun build src/basic-file-io.ts --outdir ./out",
-    "start-streams": "bun src/streams.ts",
-    "build-streams": "bun build src/streams.ts --outdir ./out"
-  },
   "devDependencies": {
     "@types/bun": "latest"
   },
