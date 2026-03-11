@@ -6,9 +6,9 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 ## About my implementation tries
 
-1º With Bun, use [File I/O API](https://bun.com/docs/runtime/file-io) to open the entire file and do the calculations  
-2º With Bun, use [Streams API](https://bun.com/docs/runtime/streams) to process the file with chunks  
-3º With Go, ... i need read the golang doc ([bufio](https://pkg.go.dev/bufio) maybe)
+Implementation 1 - With Bun, use [File I/O API](https://bun.com/docs/runtime/file-io) to open the entire file and do the calculations  
+Implementation 2 - With Bun, use [Streams API](https://bun.com/docs/runtime/streams) to process the file with chunks  
+Implementation 3 - With Go, ... i need read the golang doc ([bufio](https://pkg.go.dev/bufio) maybe)
 
 ## Objectives
 
@@ -19,7 +19,7 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 ## Results
 
-#### With the 1º implementation (open the entire file)
+#### Implementation 1
 
 | Nº of lines |           Time spent |
 | :---------- | -------------------: |
@@ -29,7 +29,7 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 | 100M        |                  28s |
 | 1B          | Process killed (OOM) |
 
-#### With the 2º implementation (process the file with chunks)
+#### Implementation 2
 
 | Nº of lines | Script version | Time spent |
 | :---------- | :------------- | ---------: |
