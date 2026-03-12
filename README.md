@@ -31,9 +31,16 @@ Implementation ? - With Go, do something
 
 ## Others
 
+#### Links
+
 Original repository: [The One Billion Row Challenge](https://github.com/gunnarmorling/1brc)  
 Bun File I/O API: [Bun File I/O](https://bun.com/docs/runtime/file-io)  
 Bun Streams API: [Bun Streams](https://bun.com/docs/runtime/streams)  
 Bun Workers API: [Bun Workers](https://bun.com/docs/runtime/workers)  
 Golang inspiration: [Reading 16GB File in Seconds](https://medium.com/swlh/processing-16gb-file-in-seconds-go-lang-3982c235dfa2)  
 Golang bufio: [go bufio](https://pkg.go.dev/bufio)
+
+#### General observations
+
+- I'm running this scripts 10 times on my pc and tanking the avg, the objective here is comparing the implementations
+- Passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`

@@ -1,14 +1,10 @@
 declare var self: Worker;
 
-let chunkCounter = 0;
-
 self.onmessage = (event: MessageEvent<string[]>) => {
   if (event.data[0] === "return-summary") {
     postMessage(results);
   } else {
-    console.log(`Processing chunk n${chunkCounter}`);
     // processChuck(event.data);
-    chunkCounter++;
   }
 };
 
