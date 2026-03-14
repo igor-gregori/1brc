@@ -8,7 +8,7 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 Implementation 1 - With Bun, use File I/O to open the entire file and do the calculations.  
 Implementation 2 - With Bun, use Streams API to process the file in chunks.  
-Implementation 3 - With Bun, use Streams API to process the file in chunks and pass the summary job to a background worker.  
+Implementation 3 - With Bun, use Streams API to process the file in chunks and pass the summary job to a pool of background workers.  
 Implementation ? - With Go, do something
 
 ## Objectives with 1B lines
@@ -19,15 +19,13 @@ Implementation ? - With Go, do something
 
 ## Results - Time spent by each implementation
 
-#### Implementation 1
-
-| Nº of lines |               Impl 1 | Impl 2 |
-| :---------- | -------------------: | -----: |
-| 10k         |                  6ms |    8ms |
-| 100k        |                 33ms |   38ms |
-| 1M          |                300ms |  260ms |
-| 100M        |                  28s |    24s |
-| 1B          | Process killed (OOM) |   230s |
+| Nº of lines |     Implementation 1 | Implementation 2 | Implementation 3 |
+| :---------- | -------------------: | ---------------: | ---------------: |
+| 10k         |                  6ms |              8ms |             14ms |
+| 100k        |                 33ms |             38ms |             25ms |
+| 1M          |                300ms |            260ms |             75ms |
+| 100M        |                  28s |              24s |               4s |
+| 1B          | Process killed (OOM) |             230s |              35s |
 
 ## Others
 
