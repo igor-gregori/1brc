@@ -43,3 +43,4 @@ Golang bufio: [go bufio](https://pkg.go.dev/bufio)
 - I'm running this scripts 10 times on my pc and taking the avg, the objective here is comparing the implementations
 - Passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`
 - Just for read the file with 1B lines, bun spend 5s
+- For each chunk, if i use a plain Object i spend 3.5ms, if i use Map i spend 2.9ms
