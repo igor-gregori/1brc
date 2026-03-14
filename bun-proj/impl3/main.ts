@@ -17,7 +17,7 @@ const workerUrl = new URL("worker.ts", import.meta.url).href;
 
 const workers = Array.from({ length: WORKER_COUNT }, () => new Worker(workerUrl));
 
-const file = Bun.file("../measurements/measurements-10k.txt");
+const file = Bun.file("../measurements/measurements.txt");
 
 console.time("impl3");
 
