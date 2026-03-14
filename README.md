@@ -40,5 +40,6 @@ Golang bufio: [go bufio](https://pkg.go.dev/bufio)
 
 #### General observations
 
-- I'm running this scripts 10 times on my pc and tanking the avg, the objective here is comparing the implementations
+- I'm running this scripts 10 times on my pc and taking the avg, the objective here is comparing the implementations
 - Passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`
+- Just for read the file with 1B lines, bun spend 5s
