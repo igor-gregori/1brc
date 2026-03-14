@@ -39,12 +39,8 @@ function processChuck(chunk: string) {
         totalSamples: 1,
       };
     } else {
-      if (results[station].min > measurement) {
-        results[station].min = measurement;
-      }
-      if (results[station].max < measurement) {
-        results[station].max = measurement;
-      }
+      results[station].min = Math.min(results[station].min, measurement);
+      results[station].max = Math.max(results[station].max, measurement);
       results[station].sum += measurement;
       results[station].totalSamples++;
     }

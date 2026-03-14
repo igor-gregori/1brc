@@ -17,14 +17,14 @@ let results: Results = {};
 
 let lastChunkPart: string | undefined = "";
 
-// let chunkNumber = 0;
+let chunkNumber = 0;
 
 for await (const chunk of stream) {
-  // const t0 = performance.now();
+  const t0 = performance.now();
   processChuck(chunk);
-  // const t1 = performance.now();
-  // console.log(`Chunck ${chunkNumber} processed in ${(t1 - t0).toFixed(3)}ms`);
-  // chunkNumber++;
+  const t1 = performance.now();
+  console.log(`Chunck ${chunkNumber} processed in ${(t1 - t0).toFixed(3)}ms`);
+  chunkNumber++;
 }
 
 function processChuck(chunk: string) {
@@ -50,12 +50,8 @@ function processChuck(chunk: string) {
         totalSamples: 1,
       };
     } else {
-      if (results[station].min > measurement) {
-        results[station].min = measurement;
-      }
-      if (results[station].max < measurement) {
-        results[station].max = measurement;
-      }
+      results[station].min = Math.min(results[station].min, measurement);
+      results[station].max = Math.max(results[station].max, measurement);
       results[station].sum += measurement;
       results[station].totalSamples++;
     }
