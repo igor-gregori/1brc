@@ -1,10 +1,10 @@
 declare var self: Worker;
 
-self.onmessage = (event: MessageEvent<string[]>) => {
-  if (event.data[0] === "return-summary") {
+self.onmessage = (event: MessageEvent<string>) => {
+  if (event.data === "return-summary") {
     postMessage(results);
   } else {
-    // processChuck(event.data);
+    processChuck(event.data);
   }
 };
 
@@ -19,8 +19,8 @@ type Results = {
 
 let results: Results = {};
 
-function processChuck(rows: string[]) {
-  for (const row of rows) {
+function processChuck(chunk: string) {
+  for (const row of chunk.split("\n")) {
     if (row === "") continue;
 
     const [station, strMeasurement] = row.split(";");
