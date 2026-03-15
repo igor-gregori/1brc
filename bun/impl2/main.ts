@@ -21,13 +21,13 @@ let chunkNumber = 0;
 
 for await (const chunk of stream) {
   const t0 = performance.now();
-  processChuck(chunk);
+  processChunck(chunk);
   const t1 = performance.now();
   console.log(`Chunck ${chunkNumber} processed in ${(t1 - t0).toFixed(3)}ms`);
   chunkNumber++;
 }
 
-function processChuck(chunk: string) {
+function processChunck(chunk: string) {
   const rows = (lastChunkPart + chunk).split("\n");
   lastChunkPart = rows.pop();
 
