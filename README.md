@@ -6,11 +6,16 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 ## About my implementation tries
 
+### With bun
+
 Implementation 1 - With Bun, use File I/O to open the entire file and do the calculations.  
 Implementation 2 - With Bun, use Streams API to process the file in chunks.  
 Implementation 3 - With Bun, use Streams API to process the file in chunks and pass the summary job to a pool of background workers.  
-Implementation 4 - Same of 3, but with processChunk function improved
-Implementation ? - With Go, do something
+Implementation 4 - Same as 3, but with processChunk function improved.
+
+### With Go
+
+Implementation 1 - With Go, use OS lib top open the entire file and do the calculations.
 
 ## Objectives with 1B lines
 
@@ -20,13 +25,15 @@ Implementation ? - With Go, do something
 
 ## Results - Time spent by each implementation
 
-| Nº of lines |     Implementation 1 | Implementation 2 | Implementation 3 | Implementation 4 |
-| :---------- | -------------------: | ---------------: | ---------------: | ---------------: |
-| 10k         |                  6ms |              8ms |             14ms |             15ms |
-| 100k        |                 33ms |             38ms |             25ms |             22ms |
-| 1M          |                300ms |            260ms |             75ms |             68ms |
-| 100M        |                  28s |              24s |               4s |               2s |
-| 1B          | Process killed (OOM) |             230s |              35s |              22s |
+|                      |  10k | 100k |    1M | 100M |   1B |
+| -------------------: | ---: | ---: | ----: | ---: | ---: |
+| Bun Implementation 1 |  6ms | 33ms | 300ms |  28s |  OOM |
+| Bun Implementation 2 |  8ms | 38ms | 260ms |  24s | 230s |
+| Bun Implementation 3 | 14ms | 25ms |  75ms |   4s |  35s |
+| Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |  22s |
+|  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |  OOM |
+
+\*OOM = Process killed (Out Of Memory)
 
 ## Others
 
@@ -37,10 +44,13 @@ Bun File I/O API: [Bun File I/O](https://bun.com/docs/runtime/file-io)
 Bun Streams API: [Bun Streams](https://bun.com/docs/runtime/streams)  
 Bun Workers API: [Bun Workers](https://bun.com/docs/runtime/workers)  
 Golang inspiration: [Reading 16GB File in Seconds](https://medium.com/swlh/processing-16gb-file-in-seconds-go-lang-3982c235dfa2)  
-Golang bufio: [go bufio](https://pkg.go.dev/bufio)
+Golang bufio: [Go bufio](https://pkg.go.dev/bufio)  
+Golang OS lib: [Go Os](https://pkg.go.dev/os#ReadFile)
 
 #### General observations
 
-- I'm running this scripts 10 times on my pc and taking the avg, the objective here is comparing the implementations
-- Passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`
-- Just for read the file with 1B lines, bun spend 5s
+- I'm running this scripts 10 times on my pc and taking the avg. The objective here is compare the implementations
+- Using bun, passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`
+- Just for read the file with 1B lines bun spend 5s
+- Maybe I can improve more my ts/bun implementation. I know the problem with memory allocation, I'm spending 2.9ms for process each chunk, maybe if i pre-alocate the memory I can decrease the preassure on GC.
+- If I need to improve the code to avoid garbage collector issues, I'd rather choose another language without a garbage collector, just for learning and fun.
