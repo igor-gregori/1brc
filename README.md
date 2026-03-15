@@ -9,6 +9,7 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 Implementation 1 - With Bun, use File I/O to open the entire file and do the calculations.  
 Implementation 2 - With Bun, use Streams API to process the file in chunks.  
 Implementation 3 - With Bun, use Streams API to process the file in chunks and pass the summary job to a pool of background workers.  
+Implementation 4 - Same of 3, but with processChunk function improved
 Implementation ? - With Go, do something
 
 ## Objectives with 1B lines
@@ -19,13 +20,13 @@ Implementation ? - With Go, do something
 
 ## Results - Time spent by each implementation
 
-| Nº of lines |     Implementation 1 | Implementation 2 | Implementation 3 |
-| :---------- | -------------------: | ---------------: | ---------------: |
-| 10k         |                  6ms |              8ms |             14ms |
-| 100k        |                 33ms |             38ms |             25ms |
-| 1M          |                300ms |            260ms |             75ms |
-| 100M        |                  28s |              24s |               4s |
-| 1B          | Process killed (OOM) |             230s |              35s |
+| Nº of lines |     Implementation 1 | Implementation 2 | Implementation 3 | Implementation 4 |
+| :---------- | -------------------: | ---------------: | ---------------: | ---------------: |
+| 10k         |                  6ms |              8ms |             14ms |             15ms |
+| 100k        |                 33ms |             38ms |             25ms |             22ms |
+| 1M          |                300ms |            260ms |             75ms |             68ms |
+| 100M        |                  28s |              24s |               4s |               2s |
+| 1B          | Process killed (OOM) |             230s |              35s |              22s |
 
 ## Others
 
@@ -43,4 +44,3 @@ Golang bufio: [go bufio](https://pkg.go.dev/bufio)
 - I'm running this scripts 10 times on my pc and taking the avg, the objective here is comparing the implementations
 - Passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`
 - Just for read the file with 1B lines, bun spend 5s
-- For each chunk, if i use a plain Object i spend 3.5ms, if i use Map i spend 2.9ms
