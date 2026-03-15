@@ -6,16 +6,16 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 ## About my implementation tries
 
-### With bun
+### With Bun
 
-Implementation 1 - With Bun, use File I/O to open the entire file and do the calculations.  
-Implementation 2 - With Bun, use Streams API to process the file in chunks.  
-Implementation 3 - With Bun, use Streams API to process the file in chunks and pass the summary job to a pool of background workers.  
+Implementation 1 - Use File I/O to open the entire file and do the calculations.  
+Implementation 2 - Use Streams API to process the file in chunks.  
+Implementation 3 - Use Streams API to process the file in chunks and pass the summary job to a pool of background workers.  
 Implementation 4 - Same as 3, but with processChunk function improved.
 
 ### With Go
 
-Implementation 1 - With Go, use OS lib top open the entire file and do the calculations.
+Implementation 1 - Use OS lib to open the entire file and do the calculations.
 
 ## Objectives with 1B lines
 
@@ -37,6 +37,14 @@ Implementation 1 - With Go, use OS lib top open the entire file and do the calcu
 
 ## Others
 
+#### General observations
+
+- I'm running this scripts 10 times on my pc and taking the avg. The objective here is compare the implementations.
+- Using bun, passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`.
+- Just for read the file with 1B lines bun spend 5s.
+- Maybe I can improve more my ts/bun implementation. I know the problem with memory allocation, I'm spending 2.9ms for process each chunk, maybe if i pre-alocate the memory I can decrease the preassure on GC.
+- If I need to improve the code to avoid garbage collector issues, I'd rather choose another language without a garbage collector, just for learning and have fun.
+
 #### Links
 
 Original repository: [The One Billion Row Challenge](https://github.com/gunnarmorling/1brc)  
@@ -46,11 +54,3 @@ Bun Workers API: [Bun Workers](https://bun.com/docs/runtime/workers)
 Golang inspiration: [Reading 16GB File in Seconds](https://medium.com/swlh/processing-16gb-file-in-seconds-go-lang-3982c235dfa2)  
 Golang bufio: [Go bufio](https://pkg.go.dev/bufio)  
 Golang OS lib: [Go Os](https://pkg.go.dev/os#ReadFile)
-
-#### General observations
-
-- I'm running this scripts 10 times on my pc and taking the avg. The objective here is compare the implementations
-- Using bun, passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`
-- Just for read the file with 1B lines bun spend 5s
-- Maybe I can improve more my ts/bun implementation. I know the problem with memory allocation, I'm spending 2.9ms for process each chunk, maybe if i pre-alocate the memory I can decrease the preassure on GC.
-- If I need to improve the code to avoid garbage collector issues, I'd rather choose another language without a garbage collector, just for learning and fun.
