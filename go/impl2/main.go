@@ -11,21 +11,21 @@ import (
 	"time"
 )
 
+type Result struct {
+	min          float64
+	max          float64
+	sum          float64
+	totalSamples int64
+}
+
 func main() {
-	file, err := os.Open("../measurements/measurements-1B.txt")
+	file, err := os.Open("../measurements/measurements.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
 
 	start := time.Now()
-
-	type Result struct {
-		min          float64
-		max          float64
-		sum          float64
-		totalSamples int64
-	}
 
 	m := make(map[string]Result)
 
