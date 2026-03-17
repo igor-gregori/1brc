@@ -16,7 +16,7 @@ Implementation 4 - Same as 3, but with processChunk function improved.
 ### With Go
 
 Implementation 1 - Use OS lib to open the entire file and perform the calculations.  
-Implementation 2 - Use bufio package to process the file in chunks.
+Implementation 2 - Use bufio package to process the file line by line.
 
 ## Objectives with 1B lines
 
