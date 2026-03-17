@@ -8,14 +8,15 @@ The catch? The file contains 1,000,000,000 (one billion) rows.
 
 ### With Bun
 
-Implementation 1 - Use File I/O to open the entire file and do the calculations.  
+Implementation 1 - Use File I/O to open the entire file and perform the calculations.  
 Implementation 2 - Use Streams API to process the file in chunks.  
 Implementation 3 - Use Streams API to process the file in chunks and pass the summary job to a pool of background workers.  
 Implementation 4 - Same as 3, but with processChunk function improved.
 
 ### With Go
 
-Implementation 1 - Use OS lib to open the entire file and do the calculations.
+Implementation 1 - Use OS lib to open the entire file and perform the calculations.
+Implementation 2 - Use bufio package to process the file in chunks.
 
 ## Objectives with 1B lines
 
@@ -32,6 +33,7 @@ Implementation 1 - Use OS lib to open the entire file and do the calculations.
 | Bun Implementation 3 | 14ms | 25ms |  75ms |   4s |  35s |
 | Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |  22s |
 |  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |  OOM |
+|  Go Implementation 2 |  1ms | 12ms | 100ms |   1s |  10s |
 
 \*OOM = Process killed (Out Of Memory)
 
@@ -42,8 +44,9 @@ Implementation 1 - Use OS lib to open the entire file and do the calculations.
 - I'm running this scripts 10 times on my pc and taking the avg. The objective here is compare the implementations.
 - Using bun, passing an array on `worker.postMessage(arr)` is 10x slower than using a string `worker.postMessage(str)`.
 - Just for read the file with 1B lines bun spend 5s.
-- Maybe I can improve more my ts/bun implementation. I know the problem with memory allocation, I'm spending 2.9ms for process each chunk, maybe if i pre-alocate the memory I can decrease the preassure on GC.
-- If I need to improve the code to avoid garbage collector issues, I'd rather choose another language without a garbage collector, just for learning and have fun.
+- Using bun, str.split() is 5x slower then str.slice(), and Map is a little bit faster than a plain Object.
+- Maybe I can improve more my ts/bun implementation. I know the problem with memory allocation, I'm spending 2.9ms for process each chunk, maybe if I pre-alocate the memory I can decrease the preassure on GC.
+- Maybe I can implement some tricks to use less GC/allocation, but I want test some other languages and keep the code understandable.
 
 #### Links
 
