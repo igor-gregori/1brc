@@ -19,7 +19,7 @@ type Result struct {
 }
 
 func main() {
-	file, err := os.Open("../measurements/measurements-100k.txt")
+	file, err := os.Open("../measurements/measurements-1B.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

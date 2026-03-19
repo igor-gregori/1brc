@@ -17,6 +17,7 @@ Implementation 4 - Same as 3, but with processChunk function improved.
 
 Implementation 1 - Use OS lib to open the entire file and perform the calculations.  
 Implementation 2 - Use bufio package to process the file line by line.
+Implementation 3 - Use OS lib to process the file in chunks.
 
 ## Objectives with 1B lines
 
@@ -34,6 +35,7 @@ Implementation 2 - Use bufio package to process the file line by line.
 | Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |  22s |
 |  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |  OOM |
 |  Go Implementation 2 |  1ms | 12ms | 100ms |   1s |  10s |
+|  Go Implementation 3 |  1ms | 12ms |  87ms |   8s |  83s |
 
 \*OOM = Process killed (Out Of Memory)
 
