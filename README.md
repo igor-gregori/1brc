@@ -1,3 +1,5 @@
+🚧 WIP
+
 # 1 Billion Rows Challenge (1BRC)
 
 The 1 Billion Rows Challenge (1BRC) is a focused exploration of how modern software stacks process massive amounts of data. The goal is simple: read a text file containing temperature measurements from various weather stations and calculate the minimum, maximum, and average temperature per station.
@@ -49,6 +51,7 @@ Implementation 3 - Use OS lib to process the file in chunks.
 - Using bun, str.split() is 5x slower then str.slice(), and Map is a little bit faster than a plain Object.
 - Maybe I can improve more my ts/bun implementation. I know the problem with memory allocation, I'm spending 2.9ms for process each chunk, maybe if I pre-alocate the memory I can decrease the preassure on GC.
 - Maybe I can implement some tricks to use less GC/allocation, but I want test some other languages and keep the code understandable.
+- Some implementations are not totally complete, I need handle the results of parallel process.
 
 #### Links
 
