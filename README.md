@@ -29,15 +29,15 @@ Implementation 3 - Use OS lib to process the file in chunks.
 
 ## Results - Time spent by each implementation
 
-|                      |  10k | 100k |    1M | 100M |   1B |
-| -------------------: | ---: | ---: | ----: | ---: | ---: |
-| Bun Implementation 1 | 15ms | 45ms | 300ms |  30s |  OOM |
-| Bun Implementation 2 |  8ms | 38ms | 260ms |  24s | 230s |
-| Bun Implementation 3 | 14ms | 25ms |  75ms |   4s |  35s |
-| Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |  22s |
-|  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |  OOM |
-|  Go Implementation 2 |  1ms | 12ms | 100ms |   1s |  10s |
-|  Go Implementation 3 |  1ms | 12ms |  87ms |   8s |  83s |
+|                      |  10k | 100k |    1M | 100M |    1B |
+| -------------------: | ---: | ---: | ----: | ---: | ----: |
+| Bun Implementation 1 | 15ms | 45ms | 300ms |  30s |   OOM |
+| Bun Implementation 2 | 20ms | 50ms | 280ms |  24s | 3m50s |
+| Bun Implementation 3 | 14ms | 25ms |  75ms |   4s |   35s |
+| Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |   22s |
+|  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |   OOM |
+|  Go Implementation 2 |  1ms | 12ms | 100ms |   1s |   10s |
+|  Go Implementation 3 |  1ms | 12ms |  87ms |   8s |   83s |
 
 \*OOM = Process killed (Out Of Memory)
 

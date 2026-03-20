@@ -1,10 +1,8 @@
-const file = Bun.file("../measurements/measurements.txt");
-
-console.time("impl2");
+const file = Bun.file("../measurements/measurements-1B.txt");
 
 const stream = file.stream().pipeThrough(new TextDecoderStream());
 
-type Results = {
+type Stats = {
   [key: string]: {
     min: number;
     max: number;
@@ -13,18 +11,12 @@ type Results = {
   };
 };
 
-let results: Results = {};
+let stats: Stats = {};
 
 let lastChunkPart: string | undefined = "";
 
-let chunkNumber = 0;
-
 for await (const chunk of stream) {
-  const t0 = performance.now();
   processChunck(chunk);
-  const t1 = performance.now();
-  console.log(`Chunck ${chunkNumber} processed in ${(t1 - t0).toFixed(3)}ms`);
-  chunkNumber++;
 }
 
 function processChunck(chunk: string) {
@@ -42,20 +34,18 @@ function processChunck(chunk: string) {
 
     const measurement = Number(strMeasurement);
 
-    if (results[station] === undefined) {
-      results[station] = {
+    if (stats[station] === undefined) {
+      stats[station] = {
         min: measurement,
         max: measurement,
         sum: measurement,
         totalSamples: 1,
       };
     } else {
-      results[station].min = Math.min(results[station].min, measurement);
-      results[station].max = Math.max(results[station].max, measurement);
-      results[station].sum += measurement;
-      results[station].totalSamples++;
+      stats[station].min = Math.min(stats[station].min, measurement);
+      stats[station].max = Math.max(stats[station].max, measurement);
+      stats[station].sum += measurement;
+      stats[station].totalSamples++;
     }
   }
 }
-
-console.timeEnd("impl2");
