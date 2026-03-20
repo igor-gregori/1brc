@@ -3,15 +3,13 @@ const file = Bun.file("../measurements/measurements.txt");
 const stream = file.stream().pipeThrough(new TextDecoderStream());
 
 type Stats = {
-  [key: string]: {
-    min: number;
-    max: number;
-    sum: number;
-    totalSamples: number;
-  };
+  min: number;
+  max: number;
+  sum: number;
+  totalSamples: number;
 };
 
-let stats: Stats = {};
+const globalStats: Map<string, Stats> = new Map();
 
 let lastChunkPart: string | undefined = "";
 
@@ -34,18 +32,20 @@ function processChunck(chunk: string) {
 
     const measurement = Number(strMeasurement);
 
-    if (stats[station] === undefined) {
-      stats[station] = {
+    const stats = globalStats.get(station);
+    if (stats === undefined) {
+      globalStats.set(station, {
         min: measurement,
         max: measurement,
         sum: measurement,
         totalSamples: 1,
-      };
+      });
     } else {
-      stats[station].min = Math.min(stats[station].min, measurement);
-      stats[station].max = Math.max(stats[station].max, measurement);
-      stats[station].sum += measurement;
-      stats[station].totalSamples++;
+      stats.min = Math.min(stats.min, measurement);
+      stats.max = Math.max(stats.max, measurement);
+      stats.sum += measurement;
+      stats.totalSamples++;
+      globalStats.set(station, stats);
     }
   }
 }
