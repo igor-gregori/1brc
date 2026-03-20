@@ -31,7 +31,7 @@ Implementation 3 - Use OS lib to process the file in chunks.
 
 |                      |  10k | 100k |    1M | 100M |    1B |
 | -------------------: | ---: | ---: | ----: | ---: | ----: |
-| Bun Implementation 1 | 15ms | 45ms | 300ms |  30s |   OOM |
+| Bun Implementation 1 | 15ms | 40ms | 250ms |  25s |   OOM |
 | Bun Implementation 2 | 20ms | 50ms | 280ms |  24s | 3m50s |
 | Bun Implementation 3 | 14ms | 25ms |  75ms |   4s |   35s |
 | Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |   22s |
