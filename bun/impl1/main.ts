@@ -1,10 +1,8 @@
 const file = Bun.file("../measurements/measurements.txt");
 
-console.time("impl1");
-
 const content = await file.text();
 
-type Results = {
+type Stats = {
   [key: string]: {
     min: number;
     max: number;
@@ -13,7 +11,7 @@ type Results = {
   };
 };
 
-let results: Results = {};
+let stats: Stats = {};
 
 for (const row of content.split("\n")) {
   if (row === "") continue;
@@ -26,19 +24,17 @@ for (const row of content.split("\n")) {
 
   const measurement = Number(strMeasurement);
 
-  if (results[station] === undefined) {
-    results[station] = {
+  if (stats[station] === undefined) {
+    stats[station] = {
       min: measurement,
       max: measurement,
       sum: measurement,
       totalSamples: 1,
     };
   } else {
-    results[station].min = Math.min(results[station].min, measurement);
-    results[station].max = Math.max(results[station].max, measurement);
-    results[station].sum += measurement;
-    results[station].totalSamples++;
+    stats[station].min = Math.min(stats[station].min, measurement);
+    stats[station].max = Math.max(stats[station].max, measurement);
+    stats[station].sum += measurement;
+    stats[station].totalSamples++;
   }
 }
-
-console.timeEnd("impl1");
