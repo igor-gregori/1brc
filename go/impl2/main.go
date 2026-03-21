@@ -8,7 +8,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 type Result struct {
@@ -24,8 +23,6 @@ func main() {
 		log.Fatal(err)
 	}
 	defer file.Close()
-
-	start := time.Now()
 
 	m := make(map[string]Result)
 
@@ -68,8 +65,4 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-
-	end := time.Now()
-	timeSpent := end.Sub(start)
-	fmt.Println("Time spent", timeSpent.Milliseconds(), "ms")
 }
