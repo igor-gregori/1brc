@@ -1,23 +1,16 @@
+import type { Stats } from "./main";
+
 declare var self: Worker;
 
 self.onmessage = (event: MessageEvent<string>) => {
-  if (event.data === "return-summary") {
-    postMessage(results);
+  if (event.data === "return-stats") {
+    postMessage(partialStats);
   } else {
     processChuck(event.data);
   }
 };
 
-type Results = {
-  [key: string]: {
-    min: number;
-    max: number;
-    sum: number;
-    totalSamples: number;
-  };
-};
-
-let results: Results = {};
+const partialStats: Map<string, Stats> = new Map();
 
 function processChuck(chunk: string) {
   for (const row of chunk.split("\n")) {
@@ -31,18 +24,20 @@ function processChuck(chunk: string) {
 
     const measurement = Number(strMeasurement);
 
-    if (results[station] === undefined) {
-      results[station] = {
+    const stats = partialStats.get(station);
+    if (stats === undefined) {
+      partialStats.set(station, {
         min: measurement,
         max: measurement,
         sum: measurement,
         totalSamples: 1,
-      };
+      });
     } else {
-      results[station].min = Math.min(results[station].min, measurement);
-      results[station].max = Math.max(results[station].max, measurement);
-      results[station].sum += measurement;
-      results[station].totalSamples++;
+      stats.min = Math.min(stats.min, measurement);
+      stats.max = Math.max(stats.max, measurement);
+      stats.sum += measurement;
+      stats.totalSamples++;
+      partialStats.set(station, stats);
     }
   }
 }

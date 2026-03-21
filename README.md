@@ -1,5 +1,3 @@
-🚧 WIP
-
 # 1 Billion Rows Challenge (1BRC)
 
 The 1 Billion Rows Challenge (1BRC) is a focused exploration of how modern software stacks process massive amounts of data. The goal is simple: read a text file containing temperature measurements from various weather stations and calculate the minimum, maximum, and average temperature per station.
@@ -33,7 +31,7 @@ Implementation 3 - Use OS lib to process the file in chunks.
 | -------------------: | ---: | ---: | ----: | ---: | ----: |
 | Bun Implementation 1 | 15ms | 40ms | 250ms |  25s |   OOM |
 | Bun Implementation 2 | 15ms | 40ms | 250ms |  20s | 3m20s |
-| Bun Implementation 3 | 14ms | 25ms |  75ms |   4s |   35s |
+| Bun Implementation 3 | 30ms | 50ms | 120ms |   3s |   30s |
 | Bun Implementation 4 | 15ms | 22ms |  68ms |   2s |   22s |
 |  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |   OOM |
 |  Go Implementation 2 |  1ms | 12ms | 100ms |   1s |   10s |
