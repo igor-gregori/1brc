@@ -35,7 +35,7 @@ Implementation 3 - Use OS lib to process the file in chunks.
 | Bun Implementation 4 | 25ms | 45ms | 100ms |   2s |   25s |
 |  Go Implementation 1 |  1ms | 15ms |  90ms |  10s |   OOM |
 |  Go Implementation 2 |  1ms | 15ms | 100ms |  10s | 1m35s |
-|  Go Implementation 3 |  1ms | 12ms |  87ms |   8s |   83s |
+|  Go Implementation 3 |  1ms | 15ms |  80ms |   8s | 1m20s |
 
 \*OOM = Process killed (Out Of Memory)
 

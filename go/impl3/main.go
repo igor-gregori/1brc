@@ -8,7 +8,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 type Result struct {
@@ -25,21 +24,13 @@ func main() {
 	}
 	defer file.Close()
 
-	start := time.Now()
-
 	buf := make([]byte, 1024*1024) // 1MB buffer
 	leftover := make([]byte, 0)
 
 	m := make(map[string]Result)
-	chunckCounter := 0
 
 	for {
-		n, err := file.Read(buf)
-		if err != nil {
-			fmt.Println(err)
-			break
-		}
-
+		n, _ := file.Read(buf)
 		if n == 0 {
 			break
 		}
@@ -82,14 +73,6 @@ func main() {
 			}
 		}
 
-		chunckCounter++
-
 		leftover = data[lastNewline+1:]
 	}
-
-	fmt.Println("Chunk counter:", chunckCounter)
-
-	end := time.Now()
-	timeSpent := end.Sub(start)
-	fmt.Println("Time spent", timeSpent.Milliseconds(), "ms")
 }
