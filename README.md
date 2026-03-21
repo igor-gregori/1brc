@@ -33,7 +33,7 @@ Implementation 3 - Use OS lib to process the file in chunks.
 | Bun Implementation 2 | 15ms | 40ms | 250ms |  20s | 3m20s |
 | Bun Implementation 3 | 30ms | 50ms | 120ms |   3s |   30s |
 | Bun Implementation 4 | 25ms | 45ms | 100ms |   2s |   25s |
-|  Go Implementation 1 |  1ms | 11ms |  84ms |  10s |   OOM |
+|  Go Implementation 1 |  1ms | 15ms |  90ms |  10s |   OOM |
 |  Go Implementation 2 |  1ms | 12ms | 100ms |   1s |   10s |
 |  Go Implementation 3 |  1ms | 12ms |  87ms |   8s |   83s |
 

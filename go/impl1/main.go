@@ -7,13 +7,10 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func main() {
-	content, err := os.ReadFile("../measurements/measurements.txt")
-
-	start := time.Now()
+	content, err := os.ReadFile("../measurements/measurements-1B.txt")
 
 	if err != nil {
 		log.Fatal("Error reading file:", err)
@@ -61,11 +58,4 @@ func main() {
 			}
 		}
 	}
-
-	end := time.Now()
-	timeSpent := end.Sub(start)
-
-	// fmt.Println("map length", len(m))
-	// fmt.Println("Biro", m["Biro"])
-	fmt.Println("Time spent", timeSpent.Milliseconds(), "ms")
 }
