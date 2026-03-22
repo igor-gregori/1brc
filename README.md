@@ -22,8 +22,8 @@ Implementation 3 - Use OS lib to process the file in chunks.
 ## Objectives with 1B lines
 
 1º - Less than 1 minute  
-2º - Less than 10 seconds  
-3º - Less than 5 seconds
+2º - Less than 30 seconds  
+3º - Less than 10 seconds
 
 ## Results - Time spent by each implementation
 
