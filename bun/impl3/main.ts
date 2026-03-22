@@ -18,7 +18,7 @@ const workerUrl = new URL("worker.ts", import.meta.url).href;
 
 const workers = Array.from({ length: WORKER_COUNT }, () => new Worker(workerUrl));
 
-const file = Bun.file("../measurements/measurements-1B.txt");
+const file = Bun.file("../measurements/measurements.txt");
 
 const stream = file.stream().pipeThrough(new TextDecoderStream());
 

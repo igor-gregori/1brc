@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-type Result struct {
+type Stats struct {
 	min          float64
 	max          float64
 	sum          float64
@@ -27,7 +27,7 @@ func main() {
 	buf := make([]byte, 1024*1024) // 1MB buffer
 	leftover := make([]byte, 0)
 
-	m := make(map[string]Result)
+	m := make(map[string]Stats)
 
 	for {
 		n, _ := file.Read(buf)
@@ -57,14 +57,14 @@ func main() {
 
 			result, ok := m[station]
 			if ok {
-				m[station] = Result{
+				m[station] = Stats{
 					min:          math.Min(result.min, measurement),
 					max:          math.Max(result.max, measurement),
 					sum:          result.sum + measurement,
 					totalSamples: result.totalSamples + 1,
 				}
 			} else {
-				m[station] = Result{
+				m[station] = Stats{
 					min:          measurement,
 					max:          measurement,
 					sum:          measurement,
