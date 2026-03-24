@@ -19,7 +19,7 @@ type Stats struct {
 }
 
 func main() {
-	filePath := "../measurements/measurements-1B.txt"
+	filePath := "../measurements/measurements.txt"
 	file, err := os.Open(filePath)
 	if err != nil {
 		log.Fatal(err)
